@@ -14,7 +14,7 @@ export default function Favoritos({ favs }) {
   const user = session?.user.email
   console.log(user)
   
-  return {props: {user}},(
+  return (
  
     <>
       <h1 className={styles.title}>Lista de favoritos: {session?.user.name}</h1>

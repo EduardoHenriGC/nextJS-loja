@@ -15,6 +15,13 @@ export async function getStaticProps() {
   }
 }
 
+function Gostei (){
+
+
+  
+}
+
+
 export default function Todos({ todos }) {
   return (
     <>
@@ -30,7 +37,7 @@ export default function Todos({ todos }) {
 
 <div >
 <BsFillCartCheckFill className={styles.icons_cart}/>
-<FcLike className={styles.icons_like}/>
+<FcLike onClick={Gostei} className={styles.icons_like}/>
 </div>
 
 </div>
