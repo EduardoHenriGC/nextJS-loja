@@ -25,7 +25,9 @@ export default function Navbar() {
       <li>
         <Link href="/contact">Contato</Link>
       </li>
-     
+      <li>
+        <Link href="/favoritos">favoritos</Link>
+      </li>
       
     </ul>
     <div className={styles.usuario}>

@@ -37,7 +37,7 @@ export async function getStaticProps({params}) {
 
 export default function Jogo({todos}) {
  
-  console.log(todos)
+  
   return (
     <>
       
