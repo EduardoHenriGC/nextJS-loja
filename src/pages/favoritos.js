@@ -3,33 +3,19 @@ import {FcLike} from "react-icons/fc"
 import {BsFillCartCheckFill} from "react-icons/bs"
 import Link from 'next/link'
 import { useSession } from "next-auth/react"
+import api from '@/Data/api'
 
-
-
-export async function getStaticProps() {
-
-
-  
-
-  const res = await fetch(`http://localhost:8800/fav`)
-
-  const data = await res.json()
-
-  const favs = data
-
-  return {
-    props: { favs },
-  }
-}
-
-
-
+ 
 
 
 export default function Favoritos({ favs }) {
+ 
   const { data: session } = useSession()
+  const user = session?.user.email
+  console.log(user)
   
-  return (
+  return {props: {user}},(
+ 
     <>
       <h1 className={styles.title}>Lista de favoritos: {session?.user.name}</h1>
       <ul className={styles.jogoslist}>
@@ -56,5 +42,26 @@ export default function Favoritos({ favs }) {
         ))}
       </ul>
     </>
-  )
+  ) 
 }
+
+
+export async function getStaticProps() {
+  
+  
+  const favUser = 's2ltfsqn@gmail.com';
+
+  const res = await api.get(`http://localhost:8800/fav`,{ params: { q: favUser } })
+
+  const favs = await res.data
+
+
+  
+
+  
+
+  return {
+    props: { favs },
+  }
+}
+
