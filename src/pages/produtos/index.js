@@ -1,4 +1,4 @@
-import styles from '../../styles/jogos.module.css';
+import styles from '../../styles/produtos.module.css';
 import { FcLike } from "react-icons/fc";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import Link from 'next/link';
