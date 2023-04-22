@@ -1,7 +1,9 @@
 import styles from '../../styles/produto.module.css'
 import {FcLike} from "react-icons/fc"
 import {BsFillCartCheckFill} from "react-icons/bs"
-import { useCallback } from 'react';
+import { AiOutlineLine } from 'react-icons/ai'
+import {MdAdd} from 'react-icons/md'
+import { useCallback,useState,useEffect} from 'react';
 import { toast } from "react-toastify";
 import { getSession } from "next-auth/react";
 import api from '@/Data/api';
@@ -51,8 +53,28 @@ async function handleLikeClick(productID, context) {
 }
 
 export default function Jogo({todos}) {
+  const [amount, setAmount] = useState(1)
+  const [total, setTotal] = useState(0);
 
+  useEffect(() => {
+    setTotal(item.preco * amount);
+  }, [amount]);
+
+  function handleAddAmount(){
+
+    
+    setAmount(amount + 1)
+  }
+
+  function handleRemoveAmount(){
+    if(amount > 1)setAmount(amount - 1)
+    
+    
+  }
+
+  
   const item = todos[0]
+
   const handleLike = useCallback(
     (productID) => {
       handleLikeClick(productID);
@@ -83,8 +105,11 @@ export default function Jogo({todos}) {
 </div>
 
 </div>
+<div className={styles.amountdiv}>Quantidade: {amount} <MdAdd className={styles.icon} onClick={handleAddAmount}/><AiOutlineLine className={styles.icon} onClick={handleRemoveAmount}/> </div>
 
-
+<div>
+  <p className={styles.valueTotal}>Total: ${total.toFixed(2)}</p>
+</div>
 
 </div>
 <div>

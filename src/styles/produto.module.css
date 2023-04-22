@@ -89,6 +89,32 @@ border-radius: 0.25rem;
     margin: 0 auto;
     margin-top: 40px;
   }
+  .amountdiv{
+    
+    padding: 5px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 1.3rem;
+    
+  }
+
+  .icon{
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+
+  .valueTotal{
+    margin-top: 8px;
+
+background-color: #A7419E;
+padding: 7px;
+font-size: 1.3rem;
+color: #fff;
+
+
+  }
   @media screen and (max-width:1100px) { 
 
    .container{

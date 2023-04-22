@@ -1,6 +1,8 @@
+
 import styles from '../styles/fav.module.css'
 import { BsFillCartCheckFill } from 'react-icons/bs'
-import { AiFillDelete } from 'react-icons/ai'
+import { AiFillDelete,AiOutlineLine } from 'react-icons/ai'
+import {MdAdd} from 'react-icons/md'
 import Link from 'next/link'
 import { getSession, useSession } from 'next-auth/react'
 import api from '@/Data/api'
@@ -20,6 +22,10 @@ async function handleDelClick(itemID, setFavs) {
 export default function Favoritos({ favs: initialFavs }) {
   const { data: session } = useSession()
   const [favs, setFavs] = useState(initialFavs)
+  
+
+
+    
 
   const handleDelete = useCallback(
     (itemID) => {
@@ -37,7 +43,7 @@ export default function Favoritos({ favs: initialFavs }) {
             <h4>{nome} </h4>
             <img src={imgurl} height="240px" width="200px" />
             <div className={styles.container_preco}>
-              <p>${preco}</p>
+              <p> ${preco} </p>
               <div>
                 <BsFillCartCheckFill className={styles.icons_cart} />
                 <AiFillDelete
@@ -48,6 +54,7 @@ export default function Favoritos({ favs: initialFavs }) {
                 />
               </div>
             </div>
+            
             <Link className={styles.link} href={`/produtos/${produtoID}`}>
               Ver mais..
             </Link>
