@@ -43,7 +43,7 @@ export default function Jogo({todos}) {
       
 
 <div className={styles.container}>
-<Link className={styles.link} href="/produtos">
+<Link className={styles.link} href="/">
   Voltar
  </Link>
  <div key={todos[0].id}>

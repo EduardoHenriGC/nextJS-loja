@@ -1,8 +1,13 @@
-.title {
-  color: #fff;
-  background-image: url('/images/pattern.jpg');
+.main {
+  
+  background: url("https://images4.alphacoders.com/115/1153100.jpg");
   background-size: cover;
   background-position: center;
-  padding: 15px;
-  margin-bottom: 15px;
+  width: 100%;
+  height: calc(100vh - 22vh);;
+  background-color: red;
+  margin: 0;
+  padding: 0;
+ 
+ 
 }

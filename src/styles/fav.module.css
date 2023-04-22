@@ -3,14 +3,17 @@
    flex-wrap: wrap;
     margin: 1em auto;
     display: flex;
+    
+    
     gap: 20px;
-    width: 90%;
+    width: 80%;
     
   }
   
   .jogoslist li {
     margin: 20px auto;
     display: flex;
+    
     flex-direction: column;
     gap: 5px;
     margin-bottom: 1em;
@@ -74,4 +77,8 @@
     cursor: pointer;
     color: red;
     margin-left: 5px;
+  }
+  .icons_thash{
+    color: red;
+    cursor: pointer;
   }
