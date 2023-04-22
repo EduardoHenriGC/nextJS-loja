@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getSession } from "next-auth/react";
 import api from '@/Data/api';
 import { useCallback } from 'react';
+import { toast } from "react-toastify";
 
 // API endpoint URL
 const API_URL = 'http://localhost:8800/produtos';
@@ -30,7 +31,7 @@ async function handleLikeClick(productID, context) {
   await api.post("/fav", {
     email: userEmail,
     produtoId: productID,
-  });
+  }).then( () => toast.success("produto adicionado aos favoritos"))
 }
 
 export default function Todos({ todos }) {

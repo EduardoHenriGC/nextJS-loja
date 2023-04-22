@@ -5,10 +5,11 @@ import Link from 'next/link'
 import { getSession, useSession } from 'next-auth/react'
 import api from '@/Data/api'
 import { useCallback, useState } from 'react'
+import { toast } from "react-toastify";
 
 async function handleDelClick(itemID, setFavs) {
   try {
-    await api.delete(`/fav${itemID}`)
+    await api.delete(`/fav${itemID}`).then( () => toast.warn("produto removido dos favoritos"))
     // update favs state after deletion
     setFavs((prevFavs) => prevFavs.filter((fav) => fav.id !== itemID))
   } catch (error) {
