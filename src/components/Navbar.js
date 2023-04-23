@@ -28,6 +28,10 @@ export default function Navbar() {
       <li>
         <Link href="/favoritos">favoritos</Link>
       </li>
+
+      <li>
+        <Link href="/cart">cart</Link>
+      </li>
       
     </ul>
     <div className={styles.usuario}>

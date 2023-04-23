@@ -34,11 +34,33 @@ async function handleLikeClick(productID, context) {
   }).then( () => toast.success("produto adicionado aos favoritos"))
 }
 
+
+async function handleCartClick(productID, context) {
+  const session = await getSession(context);
+  const userEmail = session?.user.email;
+  
+  
+  
+
+  await api.post("/cart", {
+    email: userEmail,
+    produtoId: productID,
+  }).then( () => toast.success("produto adicionado ao carrinho"))
+}
+
+
 export default function Todos({ todos }) {
   // useCallback to memoize the function for better performance
   const handleLike = useCallback(
     (productID) => {
       handleLikeClick(productID);
+    },
+    []
+  );
+
+  const handleCart = useCallback(
+    (productID) => {
+      handleCartClick(productID);
     },
     []
   );
@@ -54,7 +76,9 @@ export default function Todos({ todos }) {
             <div className={styles.container_preco}>
               <p>${preco}</p>
               <div>
-                <BsFillCartCheckFill className={styles.icons_cart} />
+                <BsFillCartCheckFill className={styles.icons_cart} 
+                onClick={() => handleCart(id)}
+                />
                 <FcLike
                   className={styles.icons_like}
                   onClick={() => handleLike(id)}

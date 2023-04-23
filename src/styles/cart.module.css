@@ -1,0 +1,113 @@
+.jogoslist {
+    list-style: none;
+    margin: 1em auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 80%;
+    flex-direction: column;
+    border: 2px solid;
+    padding: 10px;
+    max-width: 600px;
+    border-radius: 1rem;
+    
+    
+  }
+  
+  .jogoslist li {
+    margin: 0 auto;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 5px;
+   
+    
+    list-style: none;
+    border: 1px solid;
+    
+    border-radius: 0.5rem;
+    
+    justify-content: space-evenly;
+    
+    
+    
+  }
+.jogoslist img{
+  border-radius: 0.25rem;
+
+}
+.jogoslist h4 {
+
+
+  margin-bottom: 7px;
+}
+  .title{
+
+
+    margin: 30px auto;
+    text-transform: uppercase;
+  }
+  .link{
+    color: #333;
+    list-style: none;
+    text-decoration: none;
+    
+ 
+    text-transform: uppercase;
+    padding: 7px;
+  }
+  
+
+ .icons_thash{
+    color: red;
+    cursor: pointer;
+    font-size: 24px;
+  }
+  .icon{
+    font-size: 1.6rem;
+    cursor: pointer;
+  }
+
+  .containerIcon{
+
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+    
+    
+
+  }
+  .content_preco{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+   
+  }
+
+  .content_delete{
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .total{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
+
+  .total button{
+
+    background-color: green;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0.2rem;
+    font-size: 1.2rem;
+    color: #fff;
+  }

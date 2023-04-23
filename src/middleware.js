@@ -20,5 +20,12 @@ export default function middleware(req){
     return NextResponse.redirect("http://localhost:3000/favoritos");
   }
     
+  if(!verify && url.includes('/cart')){
+    return NextResponse.redirect("http://localhost:3000/");
+}
+
+if (verify && url === "http://localhost:3000/") {
+  return NextResponse.redirect("http://localhost:3000/cart");
+}
 
 }

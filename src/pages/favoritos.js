@@ -1,8 +1,7 @@
 
 import styles from '../styles/fav.module.css'
 import { BsFillCartCheckFill } from 'react-icons/bs'
-import { AiFillDelete,AiOutlineLine } from 'react-icons/ai'
-import {MdAdd} from 'react-icons/md'
+import { AiFillDelete } from 'react-icons/ai'
 import Link from 'next/link'
 import { getSession, useSession } from 'next-auth/react'
 import api from '@/Data/api'
@@ -19,6 +18,21 @@ async function handleDelClick(itemID, setFavs) {
   }
 }
 
+async function handleCartClick(itemID, context) {
+  const session = await getSession(context);
+  const userEmail = session?.user.email;
+  
+  
+  
+
+
+
+  await api.post("/cart", {
+    email: userEmail,
+    produtoId: itemID,
+  }).then( () => toast.success("produto adicionado ao carrinho"))
+}
+
 export default function Favoritos({ favs: initialFavs }) {
   const { data: session } = useSession()
   const [favs, setFavs] = useState(initialFavs)
@@ -33,7 +47,12 @@ export default function Favoritos({ favs: initialFavs }) {
     },
     [setFavs]
   )
-
+  const handleCart = useCallback(
+    (itemID) => {
+      handleCartClick(itemID);
+    },
+    []
+  );
   return (
     <>
       <h1 className={styles.title}>Lista de favoritos: {session?.user.name}</h1>
@@ -45,7 +64,10 @@ export default function Favoritos({ favs: initialFavs }) {
             <div className={styles.container_preco}>
               <p> ${preco} </p>
               <div>
-                <BsFillCartCheckFill className={styles.icons_cart} />
+                <BsFillCartCheckFill className={styles.icons_cart} 
+                onClick={() => {
+                  handleCart(produtoID)
+                }}/>
                 <AiFillDelete
                   className={styles.icons_thash}
                   onClick={() => {
