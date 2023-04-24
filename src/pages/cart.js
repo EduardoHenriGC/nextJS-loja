@@ -1,7 +1,5 @@
 import styles from '../styles/cart.module.css'
 import { AiFillDelete } from 'react-icons/ai'
-import { AiOutlineLine } from 'react-icons/ai'
-import {MdAdd} from 'react-icons/md'
 import { getSession, useSession } from 'next-auth/react'
 import api from '@/Data/api'
 import { useCallback, useState, useEffect } from 'react'
@@ -9,7 +7,11 @@ import { toast } from "react-toastify";
 
 
 async function handleDelClick(itemID, setFavs) {
+  const confirmDelete = window.confirm('Tem certeza que deseja excluir esse item do carrinho?');
+    if (confirmDelete)
   try {
+
+    
     await api.delete(`/cart${itemID}`).then( () => toast.warn("produto removido do carrinho"))
     // update favs state after deletion
     setFavs((prevFavs) => prevFavs.filter((fav) => fav.id !== itemID))
@@ -19,16 +21,27 @@ async function handleDelClick(itemID, setFavs) {
 }
 
 
+
+
+
 export default function Favoritos({ carts: initialCarts }) {
   const { data: session } = useSession()
   const [cart, setCart] = useState(initialCarts)
   const [total, setTotal] = useState(0)
   const [amount, setAmount] = useState(1)
- 
+ const [list,setList] = useState([])
+
+
   useEffect(() => {
     const newTotal = cart.reduce((acc, { preco }) => acc + (preco * amount), 0)
     setTotal(newTotal)
   }, [cart, amount])
+
+
+  useEffect(() => {
+    const newList = cart.reduce((prev, { produtoID,nome }) => prev + ( produtoID +":" + nome + "----"), [])
+    setList(newList)
+  }, [cart])
 
   const handleDelete = useCallback(
     (itemID) => {
@@ -36,14 +49,46 @@ export default function Favoritos({ carts: initialCarts }) {
     },
     [setCart]
   )
+  const handlePedidos = useCallback(
+    (nmrCasa,nmRua,cep,tel) => {
+      handleSubmit(nmrCasa,nmRua,cep,tel)
+    },
+    
+  )
 
-  // function handleAddAmount(){
-  //   setAmount(amount + 1)
-  // }
+ 
+  
+ 
 
-  // function handleRemoveAmount(){
-  //   if(amount > 1) setAmount(amount - 1)
-  // }
+  
+
+  
+  const handleSubmit = async (e, context) => {
+    e.preventDefault();
+  
+    const formData = new FormData(e.target);
+    
+    const telefone = formData.get("telefone");
+    const nmrCasa = formData.get("nmrCasa");
+    const nmRua = formData.get("nmRua");
+    const cep = formData.get("cep");
+  
+    const session = await getSession(context);
+    const userEmail = session?.user.email;
+  
+    await api
+      .post("/pedidos", {
+        email: userEmail,
+        listItem: list,
+        valor: total,
+        nmRua,
+        nmrCasa,
+        cep,
+        telefone,
+      })
+      .then(() => toast.success("deu bom"))
+      .catch(() => toast.error("deu ruinm"));
+  };
 
   
   return (
@@ -57,10 +102,7 @@ export default function Favoritos({ carts: initialCarts }) {
               <h4>{nome} </h4>
               <p> ${preco} </p>
             </div>
-            {/* <div className={styles.containerIcon}>
-              <MdAdd className={styles.icon} onClick={handleAddAmount} />
-              <AiOutlineLine className={styles.icon} onClick={handleRemoveAmount} /> 
-            </div> */}
+           
             <div className={styles.content_delete}>
               <AiFillDelete
                 className={styles.icons_thash}
@@ -72,9 +114,32 @@ export default function Favoritos({ carts: initialCarts }) {
           </li>
         ))}
       </ul>
-      <div className={styles.total}>
-        <p>Total: ${total}</p> <button>comprar</button>
+
+    <form className={styles.form}  onSubmit={handleSubmit}>
+    
+    
+      <div>
+        <label>Telefone</label>
+        <input name="telefone" type="number"/>
       </div>
+     
+      <div>
+        <label>Nome da rua</label>
+        <input  name="nmRua" type="text" />
+      </div>
+      <div>
+        <label>Numero da casa</label>
+        <input  name="nmrCasa" type="number" />
+      </div>
+      <div>
+        <label>cep</label>
+        <input  name="nmRua" type="number" />
+      </div>
+
+      <button type="submit" className={styles.submit}>SALVAR</button>
+    </form>
+      
+            
     </>
   )
 }

@@ -102,7 +102,7 @@
   }
 
 
-  .total button{
+  .submit{
 
     background-color: green;
     border: none;
@@ -110,4 +110,30 @@
     border-radius: 0.2rem;
     font-size: 1.2rem;
     color: #fff;
+  }
+  .produto{
+    display: none;
+  }
+
+  .form{
+
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    padding: 10px 20px;
+  }
+  .form input{
+
+    padding: 10px 30px;
+    min-width: 440px;
+    display: flex;
+    border-radius: 0.5rem;
+    
+  }
+  .none{
+    display: none;
   }

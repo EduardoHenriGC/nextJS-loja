@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { useSession,signIn, signOut } from "next-auth/react"
+import { FcLike } from "react-icons/fc";
+import { BsFillCartCheckFill } from "react-icons/bs";
 
 import styles from '../styles/Navbar.module.css'
 
@@ -26,11 +28,11 @@ export default function Navbar() {
         <Link href="/contact">Contato</Link>
       </li>
       <li>
-        <Link href="/favoritos">favoritos</Link>
+        <Link className={styles.like} href="/favoritos"><FcLike/></Link>
       </li>
 
       <li>
-        <Link href="/cart">cart</Link>
+        <Link className={styles.cart}  href="/cart"><BsFillCartCheckFill/></Link>
       </li>
       
     </ul>
