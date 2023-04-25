@@ -195,7 +195,7 @@ export default function Favoritos({ carts: initialCarts }) {
         <InputTelefone className={styles.form_input} value={fone} onChange={setfone} />
       
 
-      <button type="submit" className={styles.submit}>SALVAR</button>
+      <button type="submit" className={styles.submit}>comprar</button>
     </form>
       
             
