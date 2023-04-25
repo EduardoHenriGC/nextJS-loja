@@ -4,7 +4,8 @@ import { getSession, useSession } from 'next-auth/react'
 import api from '@/Data/api'
 import { useCallback, useState, useEffect } from 'react'
 import { toast } from "react-toastify";
-
+import InputCep from "../components/InputCep.js"
+import InputTelefone from "../components/InputTelefone.js"
 
 async function handleDelClick(itemID, setFavs) {
   const confirmDelete = window.confirm('Tem certeza que deseja excluir esse item do carrinho?');
@@ -30,6 +31,10 @@ export default function Favoritos({ carts: initialCarts }) {
   const [total, setTotal] = useState(0)
   const [amount, setAmount] = useState(1)
  const [list,setList] = useState([])
+ const [cep, setCep] = useState('');
+ const [fone, setfone] = useState('');
+ const [isAptoSelected, setIsAptoSelected] = useState(false);
+ const [isCasaSelected, setIsCasaSelected] = useState(false);
 
 
   useEffect(() => {
@@ -49,16 +54,19 @@ export default function Favoritos({ carts: initialCarts }) {
     },
     [setCart]
   )
-  const handlePedidos = useCallback(
-    (nmrCasa,nmRua,cep,tel) => {
-      handleSubmit(nmrCasa,nmRua,cep,tel)
-    },
-    
-  )
+
 
  
   
- 
+  const handleAptoChange = () => {
+    setIsAptoSelected(true);
+    setIsCasaSelected(false);
+  };
+
+  const handleCasaChange = () => {
+    setIsCasaSelected(true);
+    setIsAptoSelected(false);
+  };
 
   
 
@@ -68,27 +76,50 @@ export default function Favoritos({ carts: initialCarts }) {
   
     const formData = new FormData(e.target);
     
-    const telefone = formData.get("telefone");
     const nmrCasa = formData.get("nmrCasa");
     const nmRua = formData.get("nmRua");
     const cep = formData.get("cep");
+    const telefone = formData.get("telefone");
+    var tipoImovel;
+    if (isAptoSelected) {
+     var tipoImovel = "apto";
+    } else if (isCasaSelected) {
+      var tipoImovel = "casa";
+    }
   
+    if (!telefone || !nmrCasa || !nmRua || !cep || !tipoImovel) {
+      toast.warn("Preencha todos os campos");
+      return;
+    }
+    
+    
     const session = await getSession(context);
     const userEmail = session?.user.email;
+    
+     const confirmDelete = window.confirm('Tem certeza que deseja efetuar essa compra ?');
+   if (confirmDelete)
   
     await api
-      .post("/pedidos", {
-        email: userEmail,
+     .post("/pedidos", {
+    email: userEmail,
         listItem: list,
         valor: total,
-        nmRua,
-        nmrCasa,
-        cep,
-        telefone,
+    nmRua,
+    nmrCasa,
+    tipoImovel,
+    cep,
+    telefone,
+       })
+     .then(() => {
+       toast.success("compra realizada com sucesso");
+        setfone("");
+        setCep("");
+    e.target.reset();
       })
-      .then(() => toast.success("deu bom"))
-      .catch(() => toast.error("deu ruinm"));
+       .catch(() => toast.error("não foi possivel processar seu pedido"));
+      
   };
+
 
   
   return (
@@ -114,27 +145,55 @@ export default function Favoritos({ carts: initialCarts }) {
           </li>
         ))}
       </ul>
+      <p className={styles.total}>valor total: {total.toFixed(2)}</p>
 
     <form className={styles.form}  onSubmit={handleSubmit}>
     
     
-      <div>
-        <label>Telefone</label>
-        <input name="telefone" type="number"/>
-      </div>
+     
      
       <div>
-        <label>Nome da rua</label>
-        <input  name="nmRua" type="text" />
+        
+        <input placeholder='DIGITE O NOME DA RUA' className={styles.form_input}  name="nmRua" type="text" />
       </div>
-      <div>
-        <label>Numero da casa</label>
-        <input  name="nmrCasa" type="number" />
-      </div>
-      <div>
-        <label>cep</label>
-        <input  name="nmRua" type="number" />
-      </div>
+     
+      <div className={styles.checkbox}>
+     <div className={styles.checkbox_content}> 
+     <label htmlFor="apto">Apto</label>
+      <input
+        type="checkbox"
+        id="apto"
+        name="apto"
+        value="apto"
+        checked={isAptoSelected}
+        onChange={handleAptoChange}
+        
+      /></div>
+    <div className={styles.checkbox_content}>
+    <label htmlFor="casa">Casa</label>
+      <input 
+        type="checkbox"
+        id="casa"
+        name="casa"
+        value="casa"
+        checked={isCasaSelected}
+        onChange={handleCasaChange}
+        
+      />
+    </div>
+    </div>
+      
+      
+        
+        <input placeholder='DIGITE O NUMERO DA CASA' className={styles.form_input} maxlength="5" name="nmrCasa" type="tel" />
+      
+        
+        <InputCep className={styles.form_input} value={cep} onChange={setCep} />
+      
+      
+        
+        <InputTelefone className={styles.form_input} value={fone} onChange={setfone} />
+      
 
       <button type="submit" className={styles.submit}>SALVAR</button>
     </form>
