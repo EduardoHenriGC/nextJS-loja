@@ -28,4 +28,12 @@ if (verify && url === "http://localhost:3000/") {
   return NextResponse.redirect("http://localhost:3000/cart");
 }
 
+
+if(!verify && url.includes('/pedidos')){
+  return NextResponse.redirect("http://localhost:3000/");
+}
+if (verify && url === "http://localhost:3000/") {
+  return NextResponse.redirect("http://localhost:3000/pedidos");
+}
+
 }

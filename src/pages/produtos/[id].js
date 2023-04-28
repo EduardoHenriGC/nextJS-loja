@@ -52,36 +52,40 @@ async function handleLikeClick(productID, context) {
   }).then( () => toast.success("produto adicionado aos favoritos"))
 }
 
+
+async function handleCartClick(productID, context) {
+  const session = await getSession(context);
+  const userEmail = session?.user.email;
+  
+  
+  
+
+  await api.post("/cart", {
+    email: userEmail,
+    produtoId: productID,
+  }).then( () => toast.success("produto adicionado ao carrinho"))
+}
+
 export default function Jogo({todos}) {
-  const [amount, setAmount] = useState(1)
-  const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    setTotal(item.preco * amount);
-  }, [amount]);
 
-  function handleAddAmount(){
-
-    
-    setAmount(amount + 1)
-  }
-
-  function handleRemoveAmount(){
-    if(amount > 1)setAmount(amount - 1)
-    
-    
-  }
 
   
   const item = todos[0]
-
   const handleLike = useCallback(
     (productID) => {
       handleLikeClick(productID);
     },
     []
   );
-  
+
+  const handleCart = useCallback(
+    (productID) => {
+      handleCartClick(productID);
+    },
+    []
+  );
+
   return (
     <>
       
@@ -96,20 +100,20 @@ export default function Jogo({todos}) {
  
 <p>${item.preco}</p>
 
-<div >
-<BsFillCartCheckFill className={styles.icons_cart}/>
-<FcLike
-                  className={styles.icons_like}
-                  onClick={() => handleLike(item.id)}
-                />
-</div>
-
-</div>
-<div className={styles.amountdiv}>Quantidade: {amount} <MdAdd className={styles.icon} onClick={handleAddAmount}/><AiOutlineLine className={styles.icon} onClick={handleRemoveAmount}/> </div>
-
 <div>
-  <p className={styles.valueTotal}>Total: ${total.toFixed(2)}</p>
+                <BsFillCartCheckFill className={styles.icons_cart} 
+                onClick={() => handleCart(id)}
+                />
+                <FcLike
+                  className={styles.icons_like}
+                  onClick={() => handleLike(id)}
+                />
+              </div>
+
 </div>
+
+
+
 
 </div>
 <div>

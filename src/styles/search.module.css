@@ -3,8 +3,10 @@
    flex-wrap: wrap;
     margin: 1em auto;
     display: flex;
-    gap: 40px;
-    width:70%;
+    gap: 20px;
+    width: 80%;
+    
+
     
   }
   
@@ -74,4 +76,21 @@
     cursor: pointer;
     color: red;
     margin-left: 5px;
+  }
+
+  .search{
+
+    margin: 50px auto;
+    
+  }
+
+  .search input{
+
+    padding: 7px 30px;
+  }
+
+  .search button{
+
+
+    padding: 6px ;
   }

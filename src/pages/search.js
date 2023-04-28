@@ -1,27 +1,14 @@
-import styles from '../../styles/produtos.module.css';
+import {useState,useCallback } from 'react';
+import styles from '../styles/search.module.css';
 import { FcLike } from "react-icons/fc";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import Link from 'next/link';
-import { getSession } from "next-auth/react";
 import api from '@/Data/api';
-import { useCallback } from 'react';
+import { useRouter } from 'next/router'
+import {BsSearch} from "react-icons/bs"
+import { getSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import SearchPage from '../search';
 
-// API endpoint URL
-const API_URL = 'http://localhost:8800/produtos';
-
-export async function getStaticProps() {
-  // Fetch products data from the API
-  const res = await fetch(API_URL);
-  const todos = await res.json();
-
-  return {
-    props: { todos },
-  };
-}
-
-// Function to handle the like button click
 async function handleLikeClick(productID, context) {
   const session = await getSession(context);
   const userEmail = session?.user.email;
@@ -50,28 +37,54 @@ async function handleCartClick(productID, context) {
 }
 
 
-export default function Todos({ todos }) {
-  // useCallback to memoize the function for better performance
-  const handleLike = useCallback(
-    (productID) => {
-      handleLikeClick(productID);
-    },
-    []
-  );
+const SearchPage = () =>{
 
-  const handleCart = useCallback(
-    (productID) => {
-      handleCartClick(productID);
-    },
-    []
-  );
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
-  return (
-    <>
-    <SearchPage/>
-      <h1 className={styles.title}>Lista de produtos:</h1>
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await api.get('/search', { params: { q: searchTerm } });
+    setSearchResults(response.data);
+  };
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  
+    const router = useRouter()
+
+    const handleLike = useCallback(
+      (productID) => {
+        handleLikeClick(productID);
+      },
+      []
+    );
+  
+    const handleCart = useCallback(
+      (productID) => {
+        handleCartClick(productID);
+      },
+      []
+    );
+return <>
+
+
+<>
+
+ {/* <button onClick={()=>{
+
+  router.push('/produtos')
+ }}>VOLTAR</button> */}
+
+    <form className={styles.search}  onSubmit={handleSubmit}>
+  <input type="text" onClick={()=>{router.push("/search")}} value={searchTerm} onChange={handleChange}  id="txtBusca" placeholder="Buscar..."/>
+  <button type="submit"><BsSearch id="icon-busca"/></button>
+</form>
+
+       
       <ul className={styles.jogoslist}>
-        {todos.map(({id, nome, imgurl, preco }) => (
+        {searchResults.map(({id, nome, imgurl, preco }) => (
           <li key={id}>
             <h4>{nome}</h4>
             <img src={imgurl} alt={nome} height="240px" width="200px"/>
@@ -93,6 +106,11 @@ export default function Todos({ todos }) {
           </li>
         ))}
       </ul>
+
     </>
-  );
+</>
+
+
+
 }
+export default SearchPage;

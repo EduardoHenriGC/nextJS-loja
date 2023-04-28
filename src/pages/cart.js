@@ -6,6 +6,7 @@ import { useCallback, useState, useEffect } from 'react'
 import { toast } from "react-toastify";
 import InputCep from "../components/InputCep.js"
 import InputTelefone from "../components/InputTelefone.js"
+import Head from 'next/head'
 
 async function handleDelClick(itemID, setFavs) {
   const confirmDelete = window.confirm('Tem certeza que deseja excluir esse item do carrinho?');
@@ -17,7 +18,7 @@ async function handleDelClick(itemID, setFavs) {
     // update favs state after deletion
     setFavs((prevFavs) => prevFavs.filter((fav) => fav.id !== itemID))
   } catch (error) {
-    console.error('Failed to delete favorite:', error)
+    console.error('Falha ao deletar o item dos favoritos:', error)
   }
 }
 
@@ -44,7 +45,7 @@ export default function Favoritos({ carts: initialCarts }) {
 
 
   useEffect(() => {
-    const newList = cart.reduce((prev, { produtoID,nome }) => prev + ( produtoID +":" + nome + "----"), [])
+    const newList = cart.reduce((prev, { nome }) => prev + (  nome +" / "), [])
     setList(newList)
   }, [cart])
 
@@ -81,6 +82,10 @@ export default function Favoritos({ carts: initialCarts }) {
     const cep = formData.get("cep");
     const telefone = formData.get("telefone");
     var tipoImovel;
+    var date = new Date();
+    var dataCompra = ((date.getDate() )) + "/" + ((date.getMonth() + 1)) + "/" + date.getFullYear()+ " " + date.getHours() +":" + date.getMinutes(); 
+ 
+    
     if (isAptoSelected) {
      var tipoImovel = "apto";
     } else if (isCasaSelected) {
@@ -109,6 +114,7 @@ export default function Favoritos({ carts: initialCarts }) {
     tipoImovel,
     cep,
     telefone,
+    dataCompra
        })
      .then(() => {
        toast.success("compra realizada com sucesso");
@@ -124,6 +130,9 @@ export default function Favoritos({ carts: initialCarts }) {
   
   return (
     <>
+    <Head>
+        <title>Página do carrinho</title>
+      </Head>
       <h1 className={styles.title}>Carrinho : {session?.user.name}</h1>
       <ul className={styles.jogoslist}>
         {cart.map(({ id, nome, imgurl, preco }) => (
@@ -152,10 +161,10 @@ export default function Favoritos({ carts: initialCarts }) {
     
      
      
-      <div>
+      
         
         <input placeholder='DIGITE O NOME DA RUA' className={styles.form_input}  name="nmRua" type="text" />
-      </div>
+      
      
       <div className={styles.checkbox}>
      <div className={styles.checkbox_content}> 
@@ -185,7 +194,7 @@ export default function Favoritos({ carts: initialCarts }) {
       
       
         
-        <input placeholder='DIGITE O NUMERO DA CASA' className={styles.form_input} maxlength="5" name="nmrCasa" type="tel" />
+        <input placeholder='DIGITE O NUMERO DA CASA' className={styles.form_input} maxlength="16" name="nmrCasa" type="tel" />
       
         
         <InputCep className={styles.form_input} value={cep} onChange={setCep} />

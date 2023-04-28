@@ -7,6 +7,7 @@ import styles from '../styles/Navbar.module.css'
 
 
 
+
 export default function Navbar() {
   const { data: session } = useSession()
   
@@ -25,7 +26,7 @@ export default function Navbar() {
         <Link href="/about">Sobre</Link>
       </li>
       <li>
-        <Link href="/contact">Contato</Link>
+        <Link href="/pedidos">pedidos</Link>
       </li>
       <li>
         <Link className={styles.like} href="/favoritos"><FcLike/></Link>
@@ -36,6 +37,8 @@ export default function Navbar() {
       </li>
       
     </ul>
+
+   
     <div className={styles.usuario}>
     <div className={styles.log}> {session
         ? <button className={styles.out} onClick={signOut}>Sair</button>

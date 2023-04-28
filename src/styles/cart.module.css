@@ -46,7 +46,7 @@
 
     margin: 30px auto;
     text-transform: uppercase;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   .link{
     color: #333;
@@ -114,6 +114,7 @@
     font-size: 1.2rem;
     color: #fff;
     cursor: pointer;
+    margin-top: 10px;
   }
   .submit:hover{
 
@@ -170,3 +171,15 @@ gap: 10px;
     
   }
  
+
+  @media screen and (max-width:730px){
+
+
+
+.form input{
+ 
+  min-width: 80%;
+}
+
+  
+  }

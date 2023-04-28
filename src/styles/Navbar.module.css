@@ -63,6 +63,8 @@
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
+   
+    
   }
   .out{
 
@@ -87,4 +89,26 @@ font-size: 1.3rem;
   .like{
     color: yellow;
     font-size: 1.3rem;
+  }
+
+  @media screen and (max-width:730px){
+
+
+    .usuario img {
+      border-radius: 50%;
+      display: none;
+      
+    }
+
+.usuario p {
+  display: none;
+
+}
+
+.log{
+
+
+  margin-top: 12px;
+}
+
   }
