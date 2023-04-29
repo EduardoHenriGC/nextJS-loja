@@ -8,6 +8,7 @@ import { BsFillCartCheckFill } from "react-icons/bs";
 import Link from 'next/link';
 import { getSession } from "next-auth/react";
 import { useCallback } from 'react';
+import Head from 'next/head'
 
 
 
@@ -44,12 +45,15 @@ const SearchPage = () => {
   const router = useRouter();
   const { query } = router.query;
 
+
+  const fetchResults = async () => {
+    const response = await api.get("/search", { params: { q: query } });
+    const list = response.data
+    setSearchResults(list);
+  };
+
   useEffect(() => {
-    const fetchResults = async () => {
-      const response = await api.get("/search", { params: { q: query } });
-      const list = response.data
-      setSearchResults(list);
-    };
+    
     fetchResults();
   }, [query]);
 
@@ -69,7 +73,14 @@ const SearchPage = () => {
   );
 
   return (
-    <ul className={styles.jogoslist}>
+    
+<>
+
+<Head>
+        <title>Pagina de produtos</title>
+       
+      </Head>
+<ul className={styles.jogoslist}>
         {searchResults.map(({id, nome, imgurl, preco }) => (
           <li key={id}>
             <h4>{nome}</h4>
@@ -92,6 +103,8 @@ const SearchPage = () => {
           </li>
         ))}
       </ul>
+
+</>
   );
 };
 

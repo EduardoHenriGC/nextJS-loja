@@ -55,7 +55,7 @@ export default function Jogo({todos}) {
     []
   );
 
-  const item = todos[0]
+  const {id, nome, imgurl, preco,descricao } = todos[0]
 
   return (
     <>
@@ -63,21 +63,21 @@ export default function Jogo({todos}) {
 
 <div className={styles.container}>
 
- <div key={item.id}>
+ <div key={id}>
 
-<h4 className={styles.title}>{item.nome}</h4>
-<div className={styles.img}><img src={item.imgurl}/></div>
+<h4 className={styles.title}>{nome}</h4>
+<div className={styles.img}><img src={imgurl}/></div>
 <div className={styles.container_preco}>
  
-<p>${item.preco}</p>
+<p>${preco}</p>
 
 <div>
                 <BsFillCartCheckFill className={styles.icons_cart} 
-                onClick={() => handleCart(item.id)}
+                onClick={() => handleCart(id)}
                 />
                 <FcLike
                   className={styles.icons_like}
-                  onClick={() => handleLike(item.id)}
+                  onClick={() => handleLike(id)}
                 />
               </div>
 
@@ -89,7 +89,7 @@ export default function Jogo({todos}) {
 </div>
 <div>
 <h3 className={styles.h3}>Descrição</h3>
-<div className={styles.descricao}>{item.descricao}</div>
+<div className={styles.descricao}>{descricao}</div>
 </div>
 </div>
 

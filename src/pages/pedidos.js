@@ -1,6 +1,7 @@
 import styles from '../styles/pedidos.module.css'
 import { getSession, useSession } from 'next-auth/react'
 import api from '@/Data/api'
+import Head from 'next/head'
 
 
 
@@ -16,7 +17,10 @@ export default function Pedidos({ pedidos }) {
 
   return (
     <>
-     
+     <Head>
+        <title>Pagina dos Pedidos</title>
+       
+      </Head>
       <table className={styles.table}>
       <caption>Lista de pedidos: {session?.user.name}</caption>
       <thead>

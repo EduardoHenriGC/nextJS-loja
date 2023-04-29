@@ -7,6 +7,7 @@ import api from '@/Data/api';
 import { useCallback } from 'react';
 import { toast } from "react-toastify";
 import SearchPage from '../search';
+import Head from 'next/head'
 
 // API endpoint URL
 const API_URL = 'http://localhost:8800/produtos';
@@ -68,6 +69,12 @@ export default function Todos({ todos }) {
 
   return (
     <>
+
+<Head>
+        <title>Pagina dos Produtos porra</title>
+       
+      </Head>
+
     <SearchPage/>
       <h1 className={styles.title}>Lista de produtos:</h1>
       <ul className={styles.jogoslist}>

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { getSession, useSession } from 'next-auth/react'
 import api from '@/Data/api'
 import { useCallback, useState } from 'react'
+import Head from 'next/head'
 import { toast } from "react-toastify";
 
 async function handleDelClick(itemID, setFavs) {
@@ -55,6 +56,11 @@ export default function Favoritos({ favs: initialFavs }) {
   );
   return (
     <>
+
+<Head>
+        <title>Pagina dos Favoritos</title>
+       
+      </Head>
       <h1 className={styles.title}>Lista de favoritos: {session?.user.name}</h1>
       <ul className={styles.jogoslist}>
         {favs.map(({ produtoID,id, nome, imgurl, preco }) => (
