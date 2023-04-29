@@ -1,43 +1,12 @@
 import styles from '../../styles/produto.module.css'
 import {FcLike} from "react-icons/fc"
 import {BsFillCartCheckFill} from "react-icons/bs"
-import { AiOutlineLine } from 'react-icons/ai'
-import {MdAdd} from 'react-icons/md'
-import { useCallback,useState,useEffect} from 'react';
+import { useCallback,} from 'react';
 import { toast } from "react-toastify";
 import { getSession } from "next-auth/react";
 import api from '@/Data/api';
 
 
-export async function getStaticPaths() {
-  const response = await fetch('http://localhost:8800/produtos/')
-  const data = await response.json()
-
-  const paths = data.map((todo) => {
-    return {
-      params: {
-        id: `${todo.id}`
-      }
-    }
-  })
-
- 
-  return { paths, fallback: false }
-}
-
-
-export async function getStaticProps({params}) {
- 
-  const res = await fetch(
-    `http://localhost:8800/produtos/${params.id}`,
-  )
-
-  const todos = await res.json()
-
-  return {
-    props: { todos },
-  }
-}
 
 async function handleLikeClick(productID, context) {
   const session = await getSession(context);
@@ -71,7 +40,7 @@ export default function Jogo({todos}) {
 
 
   
-  const item = todos[0]
+  
   const handleLike = useCallback(
     (productID) => {
       handleLikeClick(productID);
@@ -85,6 +54,8 @@ export default function Jogo({todos}) {
     },
     []
   );
+
+  const item = todos[0]
 
   return (
     <>
@@ -102,11 +73,11 @@ export default function Jogo({todos}) {
 
 <div>
                 <BsFillCartCheckFill className={styles.icons_cart} 
-                onClick={() => handleCart(id)}
+                onClick={() => handleCart(item.id)}
                 />
                 <FcLike
                   className={styles.icons_like}
-                  onClick={() => handleLike(id)}
+                  onClick={() => handleLike(item.id)}
                 />
               </div>
 
@@ -125,4 +96,35 @@ export default function Jogo({todos}) {
    
     </>
   )
+}
+
+
+export async function getStaticPaths() {
+  const response = await fetch('http://localhost:8800/produtos/')
+  const data = await response.json()
+
+  const paths = data.map((todo) => {
+    return {
+      params: {
+        id: `${todo.id}`
+      }
+    }
+  })
+
+ 
+  return { paths, fallback: false }
+}
+
+
+export async function getStaticProps({params}) {
+ 
+  const res = await fetch(
+    `http://localhost:8800/produtos/${params.id}`,
+  )
+
+  const todos = await res.json()
+
+  return {
+    props: { todos },
+  }
 }

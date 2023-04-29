@@ -36,4 +36,12 @@ if (verify && url === "http://localhost:3000/") {
   return NextResponse.redirect("http://localhost:3000/pedidos");
 }
 
+
+if(!verify && url.includes('/search')){
+  return NextResponse.redirect("http://localhost:3000/");
+}
+if (verify && url === "http://localhost:3000/") {
+  return NextResponse.redirect("http://localhost:3000/search");
+}
+
 }
