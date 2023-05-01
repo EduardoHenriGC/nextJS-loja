@@ -1,86 +1,69 @@
 .jogoslist {
-    list-style: none;
-   flex-wrap: wrap;
-    margin: 1em auto;
-    display: flex;
-    
-    
-    gap: 20px;
-    width: 80%;
-    
-  }
-  
-  .jogoslist li {
-    margin: 20px auto;
-    display: flex;
-    
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 1em;
-    padding-bottom: 1em;
-    
-    list-style: none;
-    
-    
-  }
-.jogoslist img{
+  list-style: none;
+  flex-wrap: wrap;
+  margin: 1em auto;
+  display: flex;
+
+  gap: 20px;
+  width: 80%;
+}
+
+.jogoslist li {
+  margin: 20px auto;
+  display: flex;
+
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+
+  list-style: none;
+}
+.jogoslist img {
   border-radius: 0.5rem;
 }
 .jogoslist h4 {
-
-
   margin-bottom: 7px;
 }
-  .title{
+.title {
+  margin: 30px auto;
+  text-transform: uppercase;
+}
+.link {
+  color: #333;
+  list-style: none;
+  text-decoration: none;
 
+  text-transform: uppercase;
+  padding: 7px;
+}
+.link:hover {
+  background-color: gold;
+  border-radius: 50px;
+}
 
-    margin: 30px auto;
-    text-transform: uppercase;
-  }
-  .link{
-    color: #333;
-    list-style: none;
-    text-decoration: none;
-    
- 
-    text-transform: uppercase;
-    padding: 7px;
-  }
-  .link:hover{
+.container_preco {
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+  color: #333;
+  text-transform: uppercase;
+  font-size: 20px;
+  padding: 5px;
+}
 
-    background-color: gold;
-    border-radius: 50px;
-    
-  }
+.icons_cart {
+  color: green;
+  margin-right: 5px;
+  cursor: pointer;
+}
 
-  .container_preco{
-
-    display: flex;
-    justify-content: center;
-    justify-content: space-around;
-    color: #333;
-    text-transform: uppercase;
-    font-size: 20px;
-    padding: 5px;
-   
-  }
-
-  .icons_cart{
-
-    color: green;
-    margin-right: 5px;
-    cursor: pointer;
-  }
-
-  .icons_like{
-
-    cursor: pointer;
-    color: red;
-    margin-left: 5px;
-  }
-  .icons_thash{
-    color: red;
-    cursor: pointer;
-  }
-
-  
+.icons_like {
+  cursor: pointer;
+  color: red;
+  margin-left: 5px;
+}
+.icons_thash {
+  color: red;
+  cursor: pointer;
+}
