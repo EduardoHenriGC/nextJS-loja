@@ -1,185 +1,140 @@
 .jogoslist {
-    list-style: none;
-    margin: 1em auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 80%;
-    flex-direction: column;
-    
-    padding: 10px;
-    max-width: 600px;
-    border-radius: 1rem;
-    
-    
-  }
-  
-  .jogoslist li {
-    margin: 0 auto;
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    gap: 5px;
-   
-    
-    list-style: none;
-    border: 1px solid;
-    
-    border-radius: 0.5rem;
-    
-    justify-content: space-evenly;
-    
-    
-    
-  }
-.jogoslist img{
-  border-radius: 0.25rem;
+  list-style: none;
+  margin: 1em auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 80%;
+  flex-direction: column;
 
+  padding: 10px;
+  max-width: 600px;
+  border-radius: 1rem;
+}
+
+.jogoslist li {
+  margin: 0 auto;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 5px;
+
+  list-style: none;
+  border: 1px solid;
+
+  border-radius: 0.5rem;
+
+  justify-content: space-evenly;
+}
+.jogoslist img {
+  border-radius: 0.25rem;
 }
 .jogoslist h4 {
-
-
-  margin-bottom: 7px;
+  margin-bottom: 6px;
 }
-  .title{
+.title {
+  margin: 30px auto;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+.link {
+  color: #333;
+  list-style: none;
+  text-decoration: none;
 
-
-    margin: 30px auto;
-    text-transform: uppercase;
-    font-size: 1.2rem;
-  }
-  .link{
-    color: #333;
-    list-style: none;
-    text-decoration: none;
-    
- 
-    text-transform: uppercase;
-    padding: 7px;
-  }
-  
-
- .icons_thash{
-    color: red;
-    cursor: pointer;
-    font-size: 24px;
-  }
-  .icon{
-    font-size: 1.6rem;
-    cursor: pointer;
-  }
-
-  .containerIcon{
-
-
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   gap: 10px;
-    
-    
-
-  }
-  .content_preco{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-   
-  }
-
-  .content_delete{
-
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-
-  .total{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-
-
-  .submit{
-
-    background-color: #57C276;
-    border: none;
-    padding: 6px 20px;
-    border-radius: 0.2rem;
-    font-size: 1.2rem;
-    color: #fff;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  .submit:hover{
-
-    background-color: #19721E;
-  }
-  .produto{
-    display: none;
-  }
-
-  .form{
-
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 10px;
-    padding: 10px 20px;
-  }
-
-  .form input{
-    
-    padding: 7px 30px;
-    min-width: 600px;
-    display: flex;
-    border-radius: 0.5rem;
-
-
-  }
-
-  .none{
-    display: none;
-   
-  }
-
-  .checkbox {
-
-
-display: flex;
-gap: 10px;
-
-
-
-
-  }
-
-  .checkbox input{
-
-   
-    min-width: 60px;
-    display: flex;
-   
-    
-  }
- 
-
-  @media screen and (max-width:730px){
-
-
-
-.form input{
- 
-  min-width: 80%;
+  text-transform: uppercase;
+  padding: 7px;
 }
 
-  
+.icons_thash {
+  color: red;
+  cursor: pointer;
+  font-size: 24px;
+}
+.icon {
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.containerIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.content_preco {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.content_delete {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.total {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.submit {
+  background-color: #57c276;
+  border: none;
+  padding: 6px 20px;
+  border-radius: 0.2rem;
+  font-size: 1.2rem;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.submit:hover {
+  background-color: #19721e;
+}
+.produto {
+  display: none;
+}
+
+.form {
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.form input {
+  padding: 7px 30px;
+  min-width: 600px;
+  display: flex;
+  border-radius: 0.5rem;
+}
+
+.none {
+  display: none;
+}
+
+.checkbox {
+  display: flex;
+  gap: 10px;
+}
+
+.checkbox input {
+  min-width: 60px;
+  display: flex;
+}
+
+@media screen and (max-width: 730px) {
+  .form input {
+    min-width: 80%;
   }
+}
