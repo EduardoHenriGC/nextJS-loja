@@ -1,16 +1,16 @@
-import styles from '../../styles/produtos.module.css';
+import styles from "../../styles/produtos.module.css";
 import { FcLike } from "react-icons/fc";
 import { BsFillCartCheckFill } from "react-icons/bs";
-import Link from 'next/link';
+import Link from "next/link";
 import { getSession } from "next-auth/react";
-import api from '@/Data/api';
-import { useCallback } from 'react';
+import api from "@/Data/api";
+import { useCallback } from "react";
 import { toast } from "react-toastify";
-import SearchPage from '../search';
-import Head from 'next/head'
+import SearchPage from "../search";
+import Head from "next/head";
 
 // API endpoint URL
-const API_URL = 'http://localhost:8800/produtos';
+const API_URL = "http://localhost:8800/produtos";
 
 export async function getStaticProps() {
   // Fetch products data from the API
@@ -26,67 +26,56 @@ export async function getStaticProps() {
 async function handleLikeClick(productID, context) {
   const session = await getSession(context);
   const userEmail = session?.user.email;
-  
-  
-  
 
-  await api.post("/fav", {
-    email: userEmail,
-    produtoId: productID,
-  }).then( () => toast.success("produto adicionado aos favoritos"))
+  await api
+    .post("/fav", {
+      email: userEmail,
+      produtoId: productID,
+    })
+    .then(() => toast.success("produto adicionado aos favoritos"));
 }
-
 
 async function handleCartClick(productID, context) {
   const session = await getSession(context);
   const userEmail = session?.user.email;
-  
-  
-  
 
-  await api.post("/cart", {
-    email: userEmail,
-    produtoId: productID,
-  }).then( () => toast.success("produto adicionado ao carrinho"))
+  await api
+    .post("/cart", {
+      email: userEmail,
+      produtoId: productID,
+    })
+    .then(() => toast.success("produto adicionado ao carrinho"));
 }
-
 
 export default function Todos({ todos }) {
   // useCallback to memoize the function for better performance
-  const handleLike = useCallback(
-    (productID) => {
-      handleLikeClick(productID);
-    },
-    []
-  );
+  const handleLike = useCallback((productID) => {
+    handleLikeClick(productID);
+  }, []);
 
-  const handleCart = useCallback(
-    (productID) => {
-      handleCartClick(productID);
-    },
-    []
-  );
+  const handleCart = useCallback((productID) => {
+    handleCartClick(productID);
+  }, []);
 
   return (
     <>
-
-<Head>
+      <Head>
         <title>Pagina dos Produtos porra</title>
-       
       </Head>
 
-    <SearchPage/>
+      <SearchPage />
       <h1 className={styles.title}>Lista de produtos:</h1>
       <ul className={styles.jogoslist}>
-        {todos.map(({id, nome, imgurl, preco }) => (
+        {todos.map(({ id, nome, imgurl, preco }) => (
           <li key={id}>
             <h4>{nome}</h4>
-            <img src={imgurl} alt={nome} height="240px" width="200px"/>
+            <img src={imgurl} alt={nome} height="240px" width="200px" />
             <div className={styles.container_preco}>
               <p>${preco}</p>
               <div>
-                <BsFillCartCheckFill className={styles.icons_cart} 
-                onClick={() => handleCart(id)}
+                <BsFillCartCheckFill
+                  className={styles.icons_cart}
+                  onClick={() => handleCart(id)}
                 />
                 <FcLike
                   className={styles.icons_like}
