@@ -6,7 +6,6 @@ import { getSession } from "next-auth/react";
 import api from "@/Data/api";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
-import SearchPage from "../search";
 import Head from "next/head";
 
 // API endpoint URL
@@ -23,6 +22,17 @@ export async function getStaticProps() {
 }
 
 // Function to handle the like button click
+async function handleDelClick(itemID, setFavs) {
+  try {
+    await api
+      .delete(`/fav${itemID}`)
+      .then(() => toast.warn("produto removido dos favoritos"));
+    // update favs state after deletion
+    setFavs((prevFavs) => prevFavs.filter((fav) => fav.id !== itemID));
+  } catch (error) {
+    console.error("Failed to delete favorite:", error);
+  }
+}
 async function handleLikeClick(productID, context) {
   const session = await getSession(context);
   const userEmail = session?.user.email;
@@ -35,14 +45,14 @@ async function handleLikeClick(productID, context) {
     .then(() => toast.success("produto adicionado aos favoritos"));
 }
 
-async function handleCartClick(productID, context) {
+async function handleCartClick(itemID, context) {
   const session = await getSession(context);
   const userEmail = session?.user.email;
 
   await api
     .post("/cart", {
       email: userEmail,
-      produtoId: productID,
+      produtoId: itemID,
     })
     .then(() => toast.success("produto adicionado ao carrinho"));
 }
@@ -63,7 +73,6 @@ export default function Todos({ todos }) {
         <title>Pagina dos Produtos porra</title>
       </Head>
 
-      <SearchPage />
       <h1 className={styles.title}>Lista de produtos:</h1>
       <ul className={styles.jogoslist}>
         {todos.map(({ id, nome, imgurl, preco }) => (

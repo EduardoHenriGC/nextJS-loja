@@ -1,106 +1,106 @@
-
-import styles from '../styles/fav.module.css'
-import { BsFillCartCheckFill } from 'react-icons/bs'
-import { AiFillDelete } from 'react-icons/ai'
-import Link from 'next/link'
-import { getSession, useSession } from 'next-auth/react'
-import api from '@/Data/api'
-import { useCallback, useState } from 'react'
-import Head from 'next/head'
+import styles from "../styles/fav.module.css";
+import { BsFillCartCheckFill } from "react-icons/bs";
+import { AiFillDelete } from "react-icons/ai";
+import Link from "next/link";
+import { getSession, useSession } from "next-auth/react";
+import api from "@/Data/api";
+import { useCallback, useState } from "react";
+import Head from "next/head";
 import { toast } from "react-toastify";
 
-async function handleDelClick(itemID, setFavs) {
+async function handleDeleteFavorite(itemID, setFavs) {
   try {
-    await api.delete(`/fav${itemID}`).then( () => toast.warn("produto removido dos favoritos"))
-    // update favs state after deletion
-    setFavs((prevFavs) => prevFavs.filter((fav) => fav.id !== itemID))
+    await api.delete(`/fav${itemID}`);
+    toast.warn("Produto removido dos favoritos");
+    // Atualiza o estado dos favoritos após a remoção
+    setFavs((prevFavs) => prevFavs.filter((fav) => fav.id !== itemID));
   } catch (error) {
-    console.error('Failed to delete favorite:', error)
+    console.error("Falha ao remover favorito:", error);
   }
 }
 
-async function handleCartClick(itemID, context) {
-  const session = await getSession(context);
-  const userEmail = session?.user.email;
-  
-  
-  
-
-
-
-  await api.post("/cart", {
-    email: userEmail,
-    produtoId: itemID,
-  }).then( () => toast.success("produto adicionado ao carrinho"))
+async function handleAddToCart(itemID, userEmail) {
+  try {
+    await api.post("/cart", {
+      email: userEmail,
+      produtoId: itemID,
+    });
+    toast.success("Produto adicionado ao carrinho");
+  } catch (error) {
+    console.error("Falha ao adicionar ao carrinho:", error);
+  }
 }
 
 export default function Favoritos({ favs: initialFavs }) {
-  const { data: session } = useSession()
-  const [favs, setFavs] = useState(initialFavs)
-  
-
-
-    
+  const { data: session } = useSession();
+  const [favs, setFavs] = useState(initialFavs);
 
   const handleDelete = useCallback(
     (itemID) => {
-      handleDelClick(itemID, setFavs)
+      handleDeleteFavorite(itemID, setFavs);
     },
     [setFavs]
-  )
-  const handleCart = useCallback(
-    (itemID) => {
-      handleCartClick(itemID);
-    },
-    []
   );
+  const handleCart = useCallback(() => {
+    handleAddToCart(itemID, session?.user.email);
+  }, [session]);
+
   return (
     <>
-
-<Head>
-        <title>Pagina dos Favoritos</title>
-       
+      <Head>
+        <title>Página dos Favoritos</title>
       </Head>
       <h1 className={styles.title}>Lista de favoritos: {session?.user.name}</h1>
       <ul className={styles.jogoslist}>
-        {favs.map(({ produtoID,id, nome, imgurl, preco }) => (
+        {favs.map(({ id, nome, imgurl, preco }) => (
           <li key={id}>
             <h4>{nome} </h4>
             <img src={imgurl} height="240px" width="200px" />
             <div className={styles.container_preco}>
               <p> ${preco} </p>
               <div>
-                <BsFillCartCheckFill className={styles.icons_cart} 
-                onClick={() => {
-                  handleCart(produtoID)
-                }}/>
+                <BsFillCartCheckFill
+                  className={styles.icons_cart}
+                  onClick={() => {
+                    handleCart(id);
+                  }}
+                />
                 <AiFillDelete
                   className={styles.icons_thash}
                   onClick={() => {
-                    handleDelete(id)
+                    handleDelete(id);
                   }}
                 />
               </div>
             </div>
-            
-            <Link className={styles.link} href={`/produtos/${produtoID}`}>
+
+            <Link className={styles.link} href={`/produtos/${id}`}>
               Ver mais..
             </Link>
           </li>
         ))}
       </ul>
     </>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context)
-  var favorito = session?.user.email
+  const session = await getSession(context);
+  const userEmail = session?.user.email;
 
-  const res = await api.get(`http://localhost:8800/fav`, { params: { q: favorito } })
-  const favs = await res.data
+  try {
+    const res = await api.get("http://localhost:8800/fav", {
+      params: { q: userEmail },
+    });
+    const favs = await res.data;
 
-  return {
-    props: { favs },
+    return {
+      props: { favs },
+    };
+  } catch (error) {
+    console.error("Falha ao carregar favoritos:", error);
+    return {
+      props: { favs: [] },
+    };
   }
 }
