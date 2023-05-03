@@ -50,7 +50,7 @@ export default function Favoritos({ favs: initialFavs }) {
       <Head>
         <title>Página dos Favoritos</title>
       </Head>
-      <h1 className={styles.title}>Lista de favoritos: {session?.user.name}</h1>
+      <h2 className={styles.title}>Lista de favoritos</h2>
       <ul className={styles.jogoslist}>
         {favs.map(({ id, nome, imgurl, preco }) => (
           <li key={id}>

@@ -17,8 +17,9 @@ const SearchBar = () => {
   };
 
   return (
-    <form className={styles.searchbar} onSubmit={handleSubmit} >
+    <form className={styles.searchbar} onSubmit={handleSubmit}>
       <input
+        className={styles.input}
         type="text"
         value={searchTerm}
         onChange={handleChange}

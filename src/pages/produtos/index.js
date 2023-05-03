@@ -73,12 +73,12 @@ export default function Todos({ todos }) {
         <title>Pagina dos Produtos porra</title>
       </Head>
 
-      <h1 className={styles.title}>Lista de produtos:</h1>
+      <h2 className={styles.title}>Lista de produtos</h2>
       <ul className={styles.jogoslist}>
         {todos.map(({ id, nome, imgurl, preco }) => (
           <li key={id}>
             <h4>{nome}</h4>
-            <img src={imgurl} alt={nome} height="240px" width="200px" />
+            <img src={imgurl} alt={nome} height="300px" width="300px" />
             <div className={styles.container_preco}>
               <p>${preco}</p>
               <div>
