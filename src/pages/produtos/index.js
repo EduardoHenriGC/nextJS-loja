@@ -70,7 +70,7 @@ export default function Todos({ todos }) {
   return (
     <>
       <Head>
-        <title>Pagina dos Produtos porra</title>
+        <title>Pagina dos Produtos</title>
       </Head>
 
       <h2 className={styles.title}>Lista de produtos</h2>

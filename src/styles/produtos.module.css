@@ -21,7 +21,7 @@
   border-radius: 0.5rem;
 }
 .jogoslist h4 {
-  margin-bottom: 7px;
+  margin-bottom: 1.4rem;
 }
 .title {
   margin: 60px auto;
@@ -44,10 +44,10 @@
   display: flex;
   justify-content: center;
   justify-content: space-around;
-  color: #333;
+  color: #444;
   text-transform: uppercase;
   font-size: 20px;
-  padding: 5px;
+  margin-top: 1rem;
 }
 
 .icons_cart {

@@ -5,91 +5,75 @@ import styles from "../styles/search.module.css";
 import { toast } from "react-toastify";
 import { FcLike } from "react-icons/fc";
 import { BsFillCartCheckFill } from "react-icons/bs";
-import Link from 'next/link';
+import Link from "next/link";
 import { getSession } from "next-auth/react";
-import { useCallback } from 'react';
-import Head from 'next/head'
-
-
+import { useCallback } from "react";
+import Head from "next/head";
 
 async function handleLikeClick(productID, context) {
-    const session = await getSession(context);
-    const userEmail = session?.user.email;
-    
-    
-    
-  
-    await api.post("/fav", {
+  const session = await getSession(context);
+  const userEmail = session?.user.email;
+
+  await api
+    .post("/fav", {
       email: userEmail,
       produtoId: productID,
-    }).then( () => toast.success("produto adicionado aos favoritos"))
-  }
-  
-  
-  async function handleCartClick(productID, context) {
-    const session = await getSession(context);
-    const userEmail = session?.user.email;
-    
-    
-    
-  
-    await api.post("/cart", {
+    })
+    .then(() => toast.success("produto adicionado aos favoritos"));
+}
+
+async function handleCartClick(productID, context) {
+  const session = await getSession(context);
+  const userEmail = session?.user.email;
+
+  await api
+    .post("/cart", {
       email: userEmail,
       produtoId: productID,
-    }).then( () => toast.success("produto adicionado ao carrinho"))
-  }
-  
+    })
+    .then(() => toast.success("produto adicionado ao carrinho"));
+}
 
 const SearchPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const router = useRouter();
   const { query } = router.query;
 
-
   const fetchResults = async () => {
     const response = await api.get("/search", { params: { q: query } });
-    const list = response.data
+    const list = response.data;
     setSearchResults(list);
   };
 
   useEffect(() => {
-    
     fetchResults();
   }, [query]);
 
+  const handleLike = useCallback((productID) => {
+    handleLikeClick(productID);
+  }, []);
 
-  const handleLike = useCallback(
-    (productID) => {
-      handleLikeClick(productID);
-    },
-    []
-  );
-
-  const handleCart = useCallback(
-    (productID) => {
-      handleCartClick(productID);
-    },
-    []
-  );
+  const handleCart = useCallback((productID) => {
+    handleCartClick(productID);
+  }, []);
 
   return (
-    
-<>
-
-<Head>
-        <title>Pagina de produtos</title>
-       
+    <>
+      <Head>
+        <title>Resultado da Pesquisa</title>
       </Head>
-<ul className={styles.jogoslist}>
-        {searchResults.map(({id, nome, imgurl, preco }) => (
+      <h1 className={styles.titleContainer}>Resultado da pesquisa</h1>
+      <ul className={styles.jogoslist}>
+        {searchResults.map(({ id, nome, imgurl, preco }) => (
           <li key={id}>
             <h4>{nome}</h4>
-            <img src={imgurl} alt={nome} height="240px" width="200px"/>
+            <img src={imgurl} alt={nome} height="240px" width="200px" />
             <div className={styles.container_preco}>
               <p>${preco}</p>
               <div>
-                <BsFillCartCheckFill className={styles.icons_cart} 
-                onClick={() => handleCart(id)}
+                <BsFillCartCheckFill
+                  className={styles.icons_cart}
+                  onClick={() => handleCart(id)}
                 />
                 <FcLike
                   className={styles.icons_like}
@@ -103,8 +87,7 @@ const SearchPage = () => {
           </li>
         ))}
       </ul>
-
-</>
+    </>
   );
 };
 

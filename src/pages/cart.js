@@ -131,7 +131,7 @@ export default function Favoritos({ carts: initialCarts }) {
       <Head>
         <title>Página do carrinho</title>
       </Head>
-      <h1 className={styles.title}>Carrinho : {session?.user.name}</h1>
+      <h1 className={styles.title}>Carrinho</h1>
       <ul className={styles.jogoslist}>
         {cart.map(({ id, nome, imgurl, preco }) => (
           <li key={id}>

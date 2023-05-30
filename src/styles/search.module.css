@@ -1,11 +1,15 @@
+.titleContainer {
+  margin-top: 70px;
+  margin-bottom: 60px;
+}
+
 .jogoslist {
   list-style: none;
- flex-wrap: wrap;
+  flex-wrap: wrap;
   margin: 1em auto;
   display: flex;
-  gap: 40px;
-  width:70%;
-  
+  gap: 20px;
+  width: 60%;
 }
 
 .jogoslist li {
@@ -15,62 +19,50 @@
   gap: 5px;
   margin-bottom: 1em;
   padding-bottom: 1em;
-  
+
   list-style: none;
-  
-  
 }
-.jogoslist img{
-border-radius: 0.5rem;
+.jogoslist img {
+  border-radius: 0.5rem;
+  width: 100%;
 }
 .jogoslist h4 {
-
-
-margin-bottom: 7px;
+  margin-bottom: 1.4rem;
 }
-.title{
-
-
-  margin: 30px auto;
+.title {
+  margin: 60px auto;
   text-transform: uppercase;
 }
-.link{
+.link {
   color: #333;
   list-style: none;
   text-decoration: none;
-  
 
   text-transform: uppercase;
   padding: 7px;
 }
-.link:hover{
-
+.link:hover {
   background-color: gold;
   border-radius: 50px;
-  
 }
 
-.container_preco{
-
+.container_preco {
   display: flex;
   justify-content: center;
   justify-content: space-around;
-  color: #333;
+  color: #444;
   text-transform: uppercase;
   font-size: 20px;
-  padding: 5px;
- 
+  margin-top: 1rem;
 }
 
-.icons_cart{
-
+.icons_cart {
   color: green;
   margin-right: 5px;
   cursor: pointer;
 }
 
-.icons_like{
-
+.icons_like {
   cursor: pointer;
   color: red;
   margin-left: 5px;

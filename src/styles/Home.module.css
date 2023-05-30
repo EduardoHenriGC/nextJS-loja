@@ -1,13 +1,10 @@
 .main {
-  
-  background: url("https://images4.alphacoders.com/115/1153100.jpg");
+  background: url("https://wallpapercave.com/wp/wp2812662.png");
   background-size: cover;
   background-position: center;
   width: 100%;
-  height: calc(100vh - 20vh);;
-  
+  height: calc(100vh);
+
   margin: 0;
   padding: 0;
- 
- 
 }
